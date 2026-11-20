@@ -1,7 +1,8 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import { fileURLToPath } from 'node:url';
 import Hotel from './models/Hotel.js';
-dotenv.config();
+dotenv.config({ path: fileURLToPath(new URL('../.env', import.meta.url)) });
 
 const hotels = [
   { name: 'Coastal Comfort Mangalore', destination: 'Mangalore', description: 'Comfortable city stay close to Mangaluru attractions.', address: 'Mangaluru, Karnataka, India', pricePerNight: 2600, rating: 4.4, image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900', amenities: ['Wi-Fi','Breakfast','Parking'] },

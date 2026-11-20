@@ -2,13 +2,14 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import { fileURLToPath } from "node:url";
 
 import authRoutes from "./routes/auth.js";
 import hotelRoutes from "./routes/hotels.js";
 import bookingRoutes from "./routes/bookings.js";
 import placeRoutes from "./routes/places.js";
 
-dotenv.config();
+dotenv.config({ path: fileURLToPath(new URL("../.env", import.meta.url)) });
 
 const app = express();
 let connectionPromise;
@@ -21,6 +22,14 @@ app.use(
 );
 
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    service: "travel-agency-api",
+    health: "/api/health",
+  });
+});
 
 async function connectDatabase() {
   if (mongoose.connection.readyState === 1) return;
